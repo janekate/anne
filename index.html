@@ -1215,7 +1215,7 @@ a:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
 
   /* luck arc */
   var s=document.getElementById('arc');
-  var L=[{a:10,y:'2002–11',s:'壬',b:'寅',t:'Talent and the open road'},{a:20,y:'2012–21',s:'辛',b:'丑',t:'The heavy apprenticeship'},{a:30,y:'2022–31',s:'庚',b:'子',t:'The river finds its course',now:1},{a:40,y:'2032–41',s:'己',b:'亥',t:'Paid for what she knows'},{a:50,y:'2042–51',s:'戊',b:'戌',t:'Ground held, ground owned'},{a:60,y:'2052–61',s:'丁',b:'酉',t:'The fire arrives in full'}];
+  var L=[{a:10,y:'2002–11',s:'壬',b:'寅',t:'Talent and the open road'},{a:20,y:'2012–21',s:'辛',b:'丑',t:'The heavy apprenticeship'},{a:30,y:'2022–31',s:'庚',b:'子',t:'The river finds its course',now:1},{a:40,y:'2032–41',s:'己',b:'亥',t:'Paid for what you know'},{a:50,y:'2042–51',s:'戊',b:'戌',t:'Ground held, ground owned'},{a:60,y:'2052–61',s:'丁',b:'酉',t:'The fire arrives in full'}];
   var cx=500,cy=620,AR=430,A0=205*Math.PI/180,A1=335*Math.PI/180;
   el('path',{d:'M'+(cx+Math.cos(A0-.12)*AR)+' '+(cy+Math.sin(A0-.12)*AR)+'A'+AR+' '+AR+' 0 0 1 '+(cx+Math.cos(A1+.12)*AR)+' '+(cy+Math.sin(A1+.12)*AR),class:'ln','stroke-dasharray':'1 6',opacity:'.6'},s);
   L.forEach(function(l,i){
