@@ -276,15 +276,86 @@ a:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
 .phases .tarot.peak{border-color:var(--gold)}
 @media (max-width:960px){.phases{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){.phases{grid-template-columns:1fr}}
+
+/* ===== ILLUSTRATED LAYER: modern and ancient at once ===== */
+:root{--sun1:#ff9a2e;--sun2:#e8401f;--seal:#c23a2b;--paper:#efe6d4}
+body{background:radial-gradient(1200px 800px at 50% -10%, #1d120c 0%, #0b0a09 55%, #08080a 100%) fixed}
+.grain{position:fixed;inset:0;z-index:3;pointer-events:none;opacity:.16;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+section{position:relative}
+section::before{content:"";position:absolute;width:560px;height:560px;border-radius:50%;pointer-events:none;z-index:-1;
+  background:radial-gradient(circle, rgba(232,64,31,.16) 0%, rgba(255,154,46,.06) 42%, transparent 68%);top:30px;left:-220px}
+section:nth-of-type(even)::before{left:auto;right:-220px;top:120px;background:radial-gradient(circle, rgba(216,183,124,.12) 0%, rgba(232,64,31,.05) 45%, transparent 68%)}
+main{overflow-x:clip}
+.sec-head::before{content:"";display:block;width:54px;height:54px;margin:0 auto 16px;border-radius:50%;
+  background:linear-gradient(180deg,var(--sun1) 0%,var(--sun2) 52%,rgba(232,64,31,.35) 78%,rgba(232,64,31,0) 100%);box-shadow:0 0 40px rgba(232,64,31,.25)}
+.dm-grid .sec-head::before{margin-left:0}
+.sec-head h2{background:linear-gradient(180deg,#fff1cf 0%,#f0d9a6 45%,#d8a76a 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* cards: warm gradient fill + gradient hairline */
+.tarot,.pill{border:1px solid transparent;
+  background:linear-gradient(180deg,#15100c 0%,#0f0d0b 60%,#0d0b0a 100%) padding-box,
+             linear-gradient(160deg,rgba(240,217,166,.75),rgba(125,103,71,.25) 45%,rgba(232,64,31,.55)) border-box}
+.tarot.dm,.months .tarot.peak,.phases .tarot.peak,.eras .tarot.era.now,.lrow.peak{box-shadow:0 0 0 1px rgba(255,154,46,.35),0 20px 60px -30px rgba(232,64,31,.45)}
+.tarot::before{border-color:rgba(216,183,124,.16)}
+.tarot .tab{background:linear-gradient(180deg,#1a120c,#0b0a09)}
+.pill::after{content:"";position:absolute;left:50%;top:-1px;transform:translateX(-50%);width:42%;height:1px;background:linear-gradient(90deg,transparent,var(--sun1),transparent);opacity:.8}
+.lrow.peak{background:linear-gradient(90deg,rgba(232,64,31,.12),rgba(255,154,46,.04) 40%,transparent)}
+.bar .fi{background:linear-gradient(90deg,var(--sun2),var(--sun1),#f0d9a6)}
+/* hero */
+.hero{position:relative;padding-top:56px}
+.hero-art{width:min(560px,94vw)}
+.hero h1{display:inline-flex;align-items:center;gap:22px;background:linear-gradient(180deg,#fff3d6,#e9c98e 60%,#c98d55);-webkit-background-clip:text;background-clip:text;color:transparent}
+.seal{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;width:62px;height:76px;border-radius:6px;
+  background:radial-gradient(circle at 30% 25%,#e2553f,var(--seal) 55%,#8f2219);color:#f8e9d4;font-family:var(--han);font-weight:900;font-size:24px;line-height:1.05;
+  box-shadow:inset 0 0 0 2px rgba(248,233,212,.55),inset 0 0 0 5px var(--seal),0 6px 22px rgba(194,58,43,.35);-webkit-text-fill-color:#f8e9d4;transform:rotate(-3deg);font-style:normal}
+.vcol{position:absolute;top:120px;writing-mode:vertical-rl;font-family:var(--han);color:var(--gold);letter-spacing:.35em;font-size:15px;line-height:2}
+.vcol.l{left:max(24px,calc(50% - 470px))}
+.vcol.r{right:max(24px,calc(50% - 470px));font-family:var(--display);font-style:italic;letter-spacing:.06em;font-size:15px;color:var(--mist)}
+.vcol .rule{display:inline-block;width:1px;height:60px;background:linear-gradient(var(--gold),transparent);margin:10px 0}
+@media (max-width:760px){.vcol{display:none}.seal{width:48px;height:60px;font-size:19px}}
+/* divider */
+.divider{width:260px;height:44px}
+.deco{position:absolute;width:230px;height:115px;pointer-events:none;z-index:-1;opacity:.9;top:64px}
+.deco.l{left:max(-40px,calc(50% - 700px))}.deco.r{right:max(-40px,calc(50% - 700px));transform:scaleX(-1)}
+@media (max-width:1000px){.deco{display:none}}
 </style>
 </head>
 <body>
 <canvas id="dust" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
 <div class="page">
 
 <!-- reusable line emblems -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
+    <linearGradient id="sunG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffa53a"/><stop offset=".42" stop-color="#ec4a22"/><stop offset=".72" stop-color="#c8301c" stop-opacity=".75"/><stop offset="1" stop-color="#2a0f0a" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="sunR" cx=".5" cy=".38" r=".62">
+      <stop offset="0" stop-color="#ffb04a"/><stop offset=".55" stop-color="#e8401f"/><stop offset="1" stop-color="#9c2414"/>
+    </radialGradient>
+    <linearGradient id="goldG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f7e3b4"/><stop offset=".5" stop-color="#d9b06f"/><stop offset="1" stop-color="#a77a43"/>
+    </linearGradient>
+    <linearGradient id="inkG" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fbf4ea"/><stop offset=".55" stop-color="#e9dccd"/><stop offset="1" stop-color="#f2b7a8"/>
+    </linearGradient>
+    <symbol id="cloud" viewBox="0 0 200 100">
+      <path d="M22 72C6 72 4 52 20 49C17 31 39 22 52 33C58 13 89 9 99 29C109 15 137 17 141 37C159 31 178 44 169 60C188 62 188 81 169 81H62C42 81 31 93 6 89C21 85 27 79 22 72Z" fill="url(#goldG)"/>
+      <g fill="none" stroke="#8a6334" stroke-width="1.6" stroke-linecap="round" opacity=".75">
+        <path d="M56 58c0-9 13-9 13-1 0 6-8 7-9 2"/><path d="M92 46c0-11 16-11 16-1 0 7-10 8-11 2"/><path d="M130 60c0-8 12-8 12-1 0 5-7 6-8 1"/>
+        <path d="M30 70c10-6 26-6 40 0"/><path d="M110 74c14-8 34-8 48 0"/>
+      </g>
+    </symbol>
+    <symbol id="swallow" viewBox="0 0 300 160">
+      <path d="M40 92C80 70 150 66 210 78C240 84 262 80 284 68C270 86 248 97 214 99C160 105 100 105 40 92Z" fill="url(#inkG)"/>
+      <path d="M118 80C108 40 140 10 196 0C172 24 162 50 170 78Z" fill="url(#inkG)" opacity=".92"/>
+      <path d="M112 97C82 120 42 140 0 147C40 121 70 104 92 93Z" fill="url(#inkG)" opacity=".88"/>
+      <path d="M46 92C22 84 8 70 0 54C18 70 34 78 54 85Z" fill="url(#inkG)"/>
+      <path d="M46 95C26 105 12 119 6 134C22 117 38 107 56 99Z" fill="url(#inkG)"/>
+      <circle cx="262" cy="80" r="2.4" fill="#2a1a12"/>
+    </symbol>
+
     <symbol id="star4" viewBox="-10 -10 20 20"><path d="M0-10C1-2 2-1 10 0 2 1 1 2 0 10-1 2-2 1-10 0-2-1-1-2 0-10z" fill="#d8b77c"/></symbol>
     <symbol id="e-fire" viewBox="0 0 100 100">
       <g class="ln"><circle cx="50" cy="56" r="22" stroke-dasharray="1 3.2"/>
@@ -318,40 +389,42 @@ a:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
 </svg>
 
 <header class="hero">
+  <div class="vcol l">清明 · 壬申年三月初二<br><span class="rule"></span><br>庚金生于辰月</div>
+  <div class="vcol r">Qingming, the fifth solar term · when the air turns clear and bright and swallows return</div>
   <div class="wrap">
     <div class="num">庚</div>
-    <svg class="hero-art" id="heroArt" viewBox="-200 -230 400 470" role="img" aria-label="A gold line drawing of a sword planted in spring earth between two young trees, under a waxing crescent moon, with a spring of water below">
-      <g class="ln">
-        <path d="M-4-214a22 22 0 0 1 0 44a27 27 0 0 0 0-44z"/>
-        <path d="M0-166v18" stroke-dasharray="2 4"/>
-        <circle cx="0" cy="-30" r="128" stroke-dasharray="1 5" opacity=".7"/>
-        <circle cx="0" cy="-30" r="140" opacity=".25"/>
-      </g>
-      <g id="heroRays" class="ln"></g>
-      <g class="ln" stroke-width="1.2">
+    <svg class="hero-art" id="heroArt" viewBox="-200 -230 400 470" role="img" aria-label="A sword planted in spring earth before a red rising sun, under a gold crescent moon, with gold auspicious clouds, a white swallow and a spring of water below">
+      <circle cx="0" cy="-34" r="128" fill="url(#sunG)"/>
+      <circle cx="0" cy="-34" r="150" fill="none" stroke="#d8b77c" stroke-width=".8" stroke-dasharray="1 5" opacity=".6"/>
+      <g id="heroRays" class="ln" opacity=".7"></g>
+      <path d="M-4-214a22 22 0 0 1 0 44a27 27 0 0 0 0-44z" fill="url(#goldG)"/>
+      <path d="M0-166v18" class="ln" stroke-dasharray="2 4"/>
+      <use href="#cloud" x="88" y="-214" width="120" height="60"/>
+      <use href="#swallow" x="-178" y="-8" width="190" height="101" opacity=".95"/>
+      <g class="ln" stroke-width="1.4" stroke="#f6dfae">
         <circle cx="0" cy="-136" r="8"/>
         <path d="M-6-128h12v36h-12z"/><path d="M-6-118l12 6M-6-108l12 6"/>
         <path d="M-50-92h100"/><path d="M-50-92c-10 0-14-10-6-14M50-92c10 0 14-10 6-14"/>
-        <path d="M-12-86h24l-2 196-10 22-10-22z"/>
+        <path d="M-12-86h24l-2 196-10 22-10-22z" fill="rgba(20,10,6,.35)"/>
         <path d="M0-80v186"/>
       </g>
       <g class="ln">
-        <path d="M-16 60c-30-6-60-40-96-118"/>
-        <path d="M-52 22c-18-2-34 6-42 22 18 2 34-6 42-22zM-74-6c-2-18-14-30-32-34 2 18 14 30 32 34zM-96-40c-16 0-28 8-34 22 16 0 28-8 34-22z"/>
         <path d="M16 60c30-6 60-40 96-118"/>
         <path d="M52 22c18-2 34 6 42 22-18 2-34-6-42-22zM74-6c2-18 14-30 32-34-2 18-14 30-32 34zM96-40c16 0 28 8 34 22-16 0-28 8-34 22z"/>
-        <path d="M-186 150Q-120 76-46 126Q0 100 46 126Q120 76 186 150"/>
-        <path d="M-150 160h300" opacity=".5"/>
-        <path d="M-150 182c25-12 50 12 75 0s50 12 75 0 50 12 75 0 50 12 75 0"/>
-        <path d="M-120 202c25-12 50 12 75 0s50 12 75 0 50 12 75 0 30 8 45 2"/>
-        <path d="M-80 222c25-10 50 10 75 0s50 10 75 0 20 6 30 2"/>
       </g>
-      <circle cx="0" cy="-136" r="3" class="lnf"/>
-      <use href="#star4" x="-180" y="-150" width="16" height="16"/><use href="#star4" x="150" y="-180" width="12" height="12"/>
-      <use href="#star4" x="156" y="60" width="14" height="14"/><use href="#star4" x="-170" y="70" width="9" height="9"/>
-      <use href="#star4" x="40" y="-210" width="9" height="9"/>
+      <use href="#cloud" x="-200" y="96" width="200" height="100"/>
+      <g transform="translate(200 104) scale(-1 1)"><use href="#cloud" x="0" y="0" width="186" height="93"/></g>
+      <g class="ln">
+        <path d="M-150 186c25-12 50 12 75 0s50 12 75 0 50 12 75 0 50 12 75 0"/>
+        <path d="M-120 206c25-12 50 12 75 0s50 12 75 0 50 12 75 0 30 8 45 2"/>
+        <path d="M-80 226c25-10 50 10 75 0s50 10 75 0 20 6 30 2"/>
+      </g>
+      <circle cx="0" cy="-136" r="3" fill="#f6dfae"/>
+      <use href="#star4" x="-180" y="-150" width="16" height="16"/><use href="#star4" x="160" y="-110" width="12" height="12"/>
+      <use href="#star4" x="166" y="40" width="14" height="14"/><use href="#star4" x="-176" y="-60" width="9" height="9"/>
     </svg>
-    <h1>Anne</h1>
+    <h1>Anne <span class="seal">庚<br>戌</span></h1>
+
     <div class="sub">The blade in spring earth. A Four Pillars reading of the hour you arrived, on the day of Clear Brightness, and the fire you gather as you go.</div>
     <div class="meta">
       <div>Born<span>4 April 1992</span></div>
@@ -417,7 +490,7 @@ a:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
   </div>
 </section>
 
-<svg class="divider" viewBox="0 0 220 24" aria-hidden="true"><g class="ln"><path d="M0 12h88M132 12h88"/><circle cx="110" cy="12" r="8"/></g><circle cx="110" cy="12" r="2.5" class="lnf"/><circle cx="96" cy="12" r="1.3" class="lnf"/><circle cx="124" cy="12" r="1.3" class="lnf"/></svg>
+<svg class="divider" viewBox="0 0 260 44" aria-hidden="true"><path d="M0 26h70M190 26h70" class="ln" opacity=".6"/><use href="#cloud" x="66" y="8" width="56" height="28"/><g transform="translate(194 8) scale(-1 1)"><use href="#cloud" x="0" y="0" width="56" height="28"/></g><circle cx="130" cy="22" r="9" fill="url(#sunR)"/></svg>
 
 <section id="day-master">
   <div class="wrap dm-grid">
@@ -432,7 +505,7 @@ a:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
           <path d="M100 72v138"/>
           <path d="M56 238h88M70 248h60"/>
         </g>
-        <g id="dmRays" class="ln"></g>
+        <circle cx="100" cy="122" r="66" fill="url(#sunG)"/><g id="dmRays" class="ln"></g>
         <use href="#star4" x="18" y="34" width="14" height="14"/><use href="#star4" x="168" y="74" width="10" height="10"/>
       </svg>
       <div class="han" style="font-size:54px;font-weight:900;color:var(--gold-hi);margin-top:10px">庚</div>
@@ -448,7 +521,7 @@ a:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
   </div>
 </section>
 
-<svg class="divider" viewBox="0 0 220 24" aria-hidden="true"><g class="ln"><path d="M0 12h88M132 12h88"/><circle cx="110" cy="12" r="8"/></g><circle cx="110" cy="12" r="2.5" class="lnf"/><circle cx="96" cy="12" r="1.3" class="lnf"/><circle cx="124" cy="12" r="1.3" class="lnf"/></svg>
+<svg class="divider" viewBox="0 0 260 44" aria-hidden="true"><path d="M0 26h70M190 26h70" class="ln" opacity=".6"/><use href="#cloud" x="66" y="8" width="56" height="28"/><g transform="translate(194 8) scale(-1 1)"><use href="#cloud" x="0" y="0" width="56" height="28"/></g><circle cx="130" cy="22" r="9" fill="url(#sunR)"/></svg>
 
 <section id="elements">
   <div class="wrap">
@@ -477,9 +550,10 @@ a:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
   </div>
 </section>
 
-<svg class="divider" viewBox="0 0 220 24" aria-hidden="true"><g class="ln"><path d="M0 12h88M132 12h88"/><circle cx="110" cy="12" r="8"/></g><circle cx="110" cy="12" r="2.5" class="lnf"/><circle cx="96" cy="12" r="1.3" class="lnf"/><circle cx="124" cy="12" r="1.3" class="lnf"/></svg>
+<svg class="divider" viewBox="0 0 260 44" aria-hidden="true"><path d="M0 26h70M190 26h70" class="ln" opacity=".6"/><use href="#cloud" x="66" y="8" width="56" height="28"/><g transform="translate(194 8) scale(-1 1)"><use href="#cloud" x="0" y="0" width="56" height="28"/></g><circle cx="130" cy="22" r="9" fill="url(#sunR)"/></svg>
 
 <section id="reading">
+  <svg class="deco r" viewBox="0 0 200 100" aria-hidden="true"><use href="#cloud" x="0" y="0" width="200" height="100"/></svg>
   <div class="wrap">
     <div class="sec-head"><span class="han">命解</span><h2>The Reading</h2></div>
     <div class="talismans">
@@ -552,7 +626,7 @@ a:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
   </div>
 </section>
 
-<svg class="divider" viewBox="0 0 220 24" aria-hidden="true"><g class="ln"><path d="M0 12h88M132 12h88"/><circle cx="110" cy="12" r="8"/></g><circle cx="110" cy="12" r="2.5" class="lnf"/><circle cx="96" cy="12" r="1.3" class="lnf"/><circle cx="124" cy="12" r="1.3" class="lnf"/></svg>
+<svg class="divider" viewBox="0 0 260 44" aria-hidden="true"><path d="M0 26h70M190 26h70" class="ln" opacity=".6"/><use href="#cloud" x="66" y="8" width="56" height="28"/><g transform="translate(194 8) scale(-1 1)"><use href="#cloud" x="0" y="0" width="56" height="28"/></g><circle cx="130" cy="22" r="9" fill="url(#sunR)"/></svg>
 
 <section id="temperament">
   <div class="wrap">
@@ -587,9 +661,10 @@ a:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
   </div>
 </section>
 
-<svg class="divider" viewBox="0 0 220 24" aria-hidden="true"><g class="ln"><path d="M0 12h88M132 12h88"/><circle cx="110" cy="12" r="8"/></g><circle cx="110" cy="12" r="2.5" class="lnf"/><circle cx="96" cy="12" r="1.3" class="lnf"/><circle cx="124" cy="12" r="1.3" class="lnf"/></svg>
+<svg class="divider" viewBox="0 0 260 44" aria-hidden="true"><path d="M0 26h70M190 26h70" class="ln" opacity=".6"/><use href="#cloud" x="66" y="8" width="56" height="28"/><g transform="translate(194 8) scale(-1 1)"><use href="#cloud" x="0" y="0" width="56" height="28"/></g><circle cx="130" cy="22" r="9" fill="url(#sunR)"/></svg>
 
 <section id="love">
+  <svg class="deco l" viewBox="0 0 200 100" aria-hidden="true"><use href="#cloud" x="0" y="0" width="200" height="100"/></svg>
   <div class="wrap">
     <div class="sec-head"><span class="han">情缘</span><h2>Love &amp; Romance</h2><p>How you love, who suits you and the seasons in which love opens and deepens.</p></div>
     <div class="talismans">
@@ -667,9 +742,10 @@ a:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
 </section>
 
 
-<svg class="divider" viewBox="0 0 220 24" aria-hidden="true"><g class="ln"><path d="M0 12h88M132 12h88"/><circle cx="110" cy="12" r="8"/></g><circle cx="110" cy="12" r="2.5" class="lnf"/><circle cx="96" cy="12" r="1.3" class="lnf"/><circle cx="124" cy="12" r="1.3" class="lnf"/></svg>
+<svg class="divider" viewBox="0 0 260 44" aria-hidden="true"><path d="M0 26h70M190 26h70" class="ln" opacity=".6"/><use href="#cloud" x="66" y="8" width="56" height="28"/><g transform="translate(194 8) scale(-1 1)"><use href="#cloud" x="0" y="0" width="56" height="28"/></g><circle cx="130" cy="22" r="9" fill="url(#sunR)"/></svg>
 
 <section id="career">
+  <svg class="deco r" viewBox="0 0 200 100" aria-hidden="true"><use href="#cloud" x="0" y="0" width="200" height="100"/></svg>
   <div class="wrap">
     <div class="sec-head"><span class="han">事业</span><h2>The Work</h2><p>What your chart is built to do, the kind of work that pays you best and the milestones of your career.</p></div>
     <div class="talismans">
@@ -724,9 +800,10 @@ a:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
 </section>
 
 
-<svg class="divider" viewBox="0 0 220 24" aria-hidden="true"><g class="ln"><path d="M0 12h88M132 12h88"/><circle cx="110" cy="12" r="8"/></g><circle cx="110" cy="12" r="2.5" class="lnf"/><circle cx="96" cy="12" r="1.3" class="lnf"/><circle cx="124" cy="12" r="1.3" class="lnf"/></svg>
+<svg class="divider" viewBox="0 0 260 44" aria-hidden="true"><path d="M0 26h70M190 26h70" class="ln" opacity=".6"/><use href="#cloud" x="66" y="8" width="56" height="28"/><g transform="translate(194 8) scale(-1 1)"><use href="#cloud" x="0" y="0" width="56" height="28"/></g><circle cx="130" cy="22" r="9" fill="url(#sunR)"/></svg>
 
 <section id="abundance">
+  <svg class="deco l" viewBox="0 0 200 100" aria-hidden="true"><use href="#cloud" x="0" y="0" width="200" height="100"/></svg>
   <div class="wrap">
     <div class="sec-head"><span class="han">财运</span><h2>The Abundance Reading</h2><p>How wealth moves through your chart, where it comes from and what the next ten years hold.</p></div>
 
@@ -804,7 +881,7 @@ a:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
   </div>
 </section>
 
-<svg class="divider" viewBox="0 0 220 24" aria-hidden="true"><g class="ln"><path d="M0 12h88M132 12h88"/><circle cx="110" cy="12" r="8"/></g><circle cx="110" cy="12" r="2.5" class="lnf"/><circle cx="96" cy="12" r="1.3" class="lnf"/><circle cx="124" cy="12" r="1.3" class="lnf"/></svg>
+<svg class="divider" viewBox="0 0 260 44" aria-hidden="true"><path d="M0 26h70M190 26h70" class="ln" opacity=".6"/><use href="#cloud" x="66" y="8" width="56" height="28"/><g transform="translate(194 8) scale(-1 1)"><use href="#cloud" x="0" y="0" width="56" height="28"/></g><circle cx="130" cy="22" r="9" fill="url(#sunR)"/></svg>
 
 <section id="luck">
   <div class="wrap">
@@ -825,9 +902,10 @@ a:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
   </div>
 </section>
 
-<svg class="divider" viewBox="0 0 220 24" aria-hidden="true"><g class="ln"><path d="M0 12h88M132 12h88"/><circle cx="110" cy="12" r="8"/></g><circle cx="110" cy="12" r="2.5" class="lnf"/><circle cx="96" cy="12" r="1.3" class="lnf"/><circle cx="124" cy="12" r="1.3" class="lnf"/></svg>
+<svg class="divider" viewBox="0 0 260 44" aria-hidden="true"><path d="M0 26h70M190 26h70" class="ln" opacity=".6"/><use href="#cloud" x="66" y="8" width="56" height="28"/><g transform="translate(194 8) scale(-1 1)"><use href="#cloud" x="0" y="0" width="56" height="28"/></g><circle cx="130" cy="22" r="9" fill="url(#sunR)"/></svg>
 
 <section id="longview">
+  <svg class="deco r" viewBox="0 0 200 100" aria-hidden="true"><use href="#cloud" x="0" y="0" width="200" height="100"/></svg>
   <div class="wrap">
     <div class="sec-head"><span class="han">远景</span><h2>The Long View</h2><p>Five, ten, twenty and thirty years ahead. Your chart is one that improves with age: the heavy work sits behind you, and the strongest stretches lie in your forties and beyond.</p></div>
     <div class="eras">
@@ -891,7 +969,7 @@ a:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
 </section>
 
 
-<svg class="divider" viewBox="0 0 220 24" aria-hidden="true"><g class="ln"><path d="M0 12h88M132 12h88"/><circle cx="110" cy="12" r="8"/></g><circle cx="110" cy="12" r="2.5" class="lnf"/><circle cx="96" cy="12" r="1.3" class="lnf"/><circle cx="124" cy="12" r="1.3" class="lnf"/></svg>
+<svg class="divider" viewBox="0 0 260 44" aria-hidden="true"><path d="M0 26h70M190 26h70" class="ln" opacity=".6"/><use href="#cloud" x="66" y="8" width="56" height="28"/><g transform="translate(194 8) scale(-1 1)"><use href="#cloud" x="0" y="0" width="56" height="28"/></g><circle cx="130" cy="22" r="9" fill="url(#sunR)"/></svg>
 
 <section id="years">
   <div class="wrap">
@@ -922,7 +1000,7 @@ a:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
   </div>
 </section>
 
-<svg class="divider" viewBox="0 0 220 24" aria-hidden="true"><g class="ln"><path d="M0 12h88M132 12h88"/><circle cx="110" cy="12" r="8"/></g><circle cx="110" cy="12" r="2.5" class="lnf"/><circle cx="96" cy="12" r="1.3" class="lnf"/><circle cx="124" cy="12" r="1.3" class="lnf"/></svg>
+<svg class="divider" viewBox="0 0 260 44" aria-hidden="true"><path d="M0 26h70M190 26h70" class="ln" opacity=".6"/><use href="#cloud" x="66" y="8" width="56" height="28"/><g transform="translate(194 8) scale(-1 1)"><use href="#cloud" x="0" y="0" width="56" height="28"/></g><circle cx="130" cy="22" r="9" fill="url(#sunR)"/></svg>
 
 <section id="road">
   <div class="wrap">
@@ -989,7 +1067,7 @@ a:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
   </div>
 </section>
 
-<svg class="divider" viewBox="0 0 220 24" aria-hidden="true"><g class="ln"><path d="M0 12h88M132 12h88"/><circle cx="110" cy="12" r="8"/></g><circle cx="110" cy="12" r="2.5" class="lnf"/><circle cx="96" cy="12" r="1.3" class="lnf"/><circle cx="124" cy="12" r="1.3" class="lnf"/></svg>
+<svg class="divider" viewBox="0 0 260 44" aria-hidden="true"><path d="M0 26h70M190 26h70" class="ln" opacity=".6"/><use href="#cloud" x="66" y="8" width="56" height="28"/><g transform="translate(194 8) scale(-1 1)"><use href="#cloud" x="0" y="0" width="56" height="28"/></g><circle cx="130" cy="22" r="9" fill="url(#sunR)"/></svg>
 
 <section id="decade">
   <div class="wrap">
@@ -1031,7 +1109,7 @@ a:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
   </div>
 </section>
 
-<svg class="divider" viewBox="0 0 220 24" aria-hidden="true"><g class="ln"><path d="M0 12h88M132 12h88"/><circle cx="110" cy="12" r="8"/></g><circle cx="110" cy="12" r="2.5" class="lnf"/><circle cx="96" cy="12" r="1.3" class="lnf"/><circle cx="124" cy="12" r="1.3" class="lnf"/></svg>
+<svg class="divider" viewBox="0 0 260 44" aria-hidden="true"><path d="M0 26h70M190 26h70" class="ln" opacity=".6"/><use href="#cloud" x="66" y="8" width="56" height="28"/><g transform="translate(194 8) scale(-1 1)"><use href="#cloud" x="0" y="0" width="56" height="28"/></g><circle cx="130" cy="22" r="9" fill="url(#sunR)"/></svg>
 
 <section id="month2027">
   <div class="wrap">
@@ -1054,9 +1132,10 @@ a:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
   </div>
 </section>
 
-<svg class="divider" viewBox="0 0 220 24" aria-hidden="true"><g class="ln"><path d="M0 12h88M132 12h88"/><circle cx="110" cy="12" r="8"/></g><circle cx="110" cy="12" r="2.5" class="lnf"/><circle cx="96" cy="12" r="1.3" class="lnf"/><circle cx="124" cy="12" r="1.3" class="lnf"/></svg>
+<svg class="divider" viewBox="0 0 260 44" aria-hidden="true"><path d="M0 26h70M190 26h70" class="ln" opacity=".6"/><use href="#cloud" x="66" y="8" width="56" height="28"/><g transform="translate(194 8) scale(-1 1)"><use href="#cloud" x="0" y="0" width="56" height="28"/></g><circle cx="130" cy="22" r="9" fill="url(#sunR)"/></svg>
 
 <section id="natal">
+  <svg class="deco l" viewBox="0 0 200 100" aria-hidden="true"><use href="#cloud" x="0" y="0" width="200" height="100"/></svg>
   <div class="wrap">
     <div class="sec-head"><span class="han">星盘</span><h2>The Western Sky</h2><p>The same hour read through Western astrology: the positions of the planets over Toronto at 4:30 pm on 4 April 1992.</p></div>
     <div class="natal-top">
@@ -1119,7 +1198,7 @@ a:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
   </div>
 </section>
 
-<svg class="divider" viewBox="0 0 220 24" aria-hidden="true"><g class="ln"><path d="M0 12h88M132 12h88"/><circle cx="110" cy="12" r="8"/></g><circle cx="110" cy="12" r="2.5" class="lnf"/><circle cx="96" cy="12" r="1.3" class="lnf"/><circle cx="124" cy="12" r="1.3" class="lnf"/></svg>
+<svg class="divider" viewBox="0 0 260 44" aria-hidden="true"><path d="M0 26h70M190 26h70" class="ln" opacity=".6"/><use href="#cloud" x="66" y="8" width="56" height="28"/><g transform="translate(194 8) scale(-1 1)"><use href="#cloud" x="0" y="0" width="56" height="28"/></g><circle cx="130" cy="22" r="9" fill="url(#sunR)"/></svg>
 
 <section id="rituals">
   <div class="wrap">
@@ -1151,9 +1230,10 @@ a:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
   </div>
 </section>
 
-<svg class="divider" viewBox="0 0 220 24" aria-hidden="true"><g class="ln"><path d="M0 12h88M132 12h88"/><circle cx="110" cy="12" r="8"/></g><circle cx="110" cy="12" r="2.5" class="lnf"/><circle cx="96" cy="12" r="1.3" class="lnf"/><circle cx="124" cy="12" r="1.3" class="lnf"/></svg>
+<svg class="divider" viewBox="0 0 260 44" aria-hidden="true"><path d="M0 26h70M190 26h70" class="ln" opacity=".6"/><use href="#cloud" x="66" y="8" width="56" height="28"/><g transform="translate(194 8) scale(-1 1)"><use href="#cloud" x="0" y="0" width="56" height="28"/></g><circle cx="130" cy="22" r="9" fill="url(#sunR)"/></svg>
 
 <section id="sisters">
+  <svg class="deco r" viewBox="0 0 200 100" aria-hidden="true"><use href="#cloud" x="0" y="0" width="200" height="100"/></svg>
   <div class="wrap">
     <div class="sec-head"><span class="han">姐妹</span><h2>Anne &amp; Jane</h2><p>You and your sister, two blades from the same ore, born five years apart: Jane in deep winter, you in late spring. Where you meet, and where you part.</p></div>
     <div class="duo">
@@ -1163,7 +1243,7 @@ a:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
         <span class="cap">Yang Metal · the spring blade</span>
         <div class="row"><span>甲申<small>Hour</small></span><span>庚戌<small>Day</small></span><span>甲辰<small>Month</small></span><span>壬申<small>Year</small></span></div>
       </div>
-      <svg class="forge" viewBox="0 0 200 220" role="img" aria-label="Two crossed swords beneath a single flame">
+      <svg class="forge" viewBox="0 0 200 220" role="img" aria-label="Two crossed swords beneath a single flame"><circle cx="100" cy="100" r="58" fill="url(#sunG)" opacity=".9"/>
         <g class="ln">
           <path d="M100 6v12" stroke-dasharray="2 4"/>
           <path d="M100 26c12 18 18 30 16 42-2 11-8 16-16 16s-14-5-16-16c-2-12 4-24 16-42z"/>
@@ -1302,8 +1382,8 @@ a:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
     var ang=A0+i/(L.length-1)*(A1-A0);var x=cx+Math.cos(ang)*AR,y=cy+Math.sin(ang)*AR;
     var r=l.now?50:42;
     if(l.now){el('circle',{cx:x,cy:y,r:r+10,class:'ln','stroke-dasharray':'1 3'},s);}
-    el('circle',{cx:x,cy:y,r:r,fill:l.now?'#d8b77c':'#0f0f10',stroke:'#d8b77c','stroke-width':1.2},s);
-    var g=el('text',{x:x,y:y+9,'text-anchor':'middle','font-family':'Noto Serif SC, serif','font-weight':900,'font-size':l.now?30:26,fill:l.now?'#09090a':'#f0d9a6'},s);g.textContent=l.s+l.b;
+    el('circle',{cx:x,cy:y,r:r,fill:l.now?'url(#sunR)':'#120e0b',stroke:'#d8b77c','stroke-width':1.2},s);
+    var g=el('text',{x:x,y:y+9,'text-anchor':'middle','font-family':'Noto Serif SC, serif','font-weight':900,'font-size':l.now?30:26,fill:l.now?'#fff4e0':'#f0d9a6'},s);g.textContent=l.s+l.b;
     var oy=y-r-(l.now?40:26);
     var ag=el('text',{x:x,y:oy,'text-anchor':'middle','font-family':'Cormorant Garamond, serif','font-size':l.now?34:28,fill:'#d8b77c'},s);ag.textContent=l.a;
     var yr=el('text',{x:x,y:y+r+(l.now?34:26),'text-anchor':'middle','font-family':'Jost, sans-serif','font-size':11,'letter-spacing':'2.5',fill:'#a39479'},s);yr.textContent=l.y;
